@@ -1,0 +1,45 @@
+<h1>Edit Author</h1>
+<div style="margin-left: 100px;">
+    <p>
+        <mat-form-field appearance="outline">
+            <mat-label>Id</mat-label>
+            <input matInput placeholder="Id" [(ngModel)]="Author.id" disabled="disabled"/>
+            <mat-icon matSuffix>account_circle</mat-icon>          
+        </mat-form-field>
+    </p>
+    
+    <p>        
+        <mat-form-field appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="Title" [(ngModel)]="Author.name" />
+            <mat-icon matSuffix>name</mat-icon>       
+        </mat-form-field>
+    </p>
+
+    
+    <p>
+        <input #csvInput hidden="true" type="file" onclick="this.value=null" (change)="jpgnputChange($event)" accept=".jpg"/>
+        <button mat-flat-button color="primary" (click)="csvInput.click()">Change Photo</button>
+        <mat-card *ngIf="ChangedImage" style="width: 150px;align-items: center;">
+            <mat-card-title color="primary">Preview</mat-card-title>
+            <img style="align-items: center;" width="100px" height="100px" src="{{ChangedImage}}" mat-card-image />            
+        </mat-card>
+    </p>
+    
+<br/>
+    <div>   
+      
+        <mat-card style="width: 150px;align-items: center;">
+            <mat-card-title color="primary">Author Photo</mat-card-title>
+            <img style="align-items: center;" width="100px" height="100px" src="{{AuthorImage}}" mat-card-image />
+            <mat-card-actions align="end">
+                <button mat-button>Like ❤️</button>
+                <button mat-button>share 👍</button>
+              </mat-card-actions>
+        </mat-card>
+    
+    </div>
+    <br/>
+    <button mat-raised-button color="primary" (click)="back()">Back</button>
+    <button style="margin-left: 15px;" mat-raised-button color="accent" (click)="save()">Save</button>
+</div>

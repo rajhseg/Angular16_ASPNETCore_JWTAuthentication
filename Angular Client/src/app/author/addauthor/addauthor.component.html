@@ -1,0 +1,16 @@
+<br/>
+<h1>Add Author</h1>
+<div style="margin-left: 100px;">    
+    <br/>
+    <p>        
+        <mat-form-field appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="Title" [(ngModel)]="Author.name" />
+            <mat-icon matSuffix>title</mat-icon>
+            <mat-hint>Hint:author name</mat-hint>
+        </mat-form-field>
+    </p>
+    <br/>
+    <button mat-raised-button color="primary" (click)="back()">Back</button>
+    <button style="margin-left: 60px;" mat-raised-button color="accent" (click)="save()">Save</button>
+</div>

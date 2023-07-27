@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Abc.AuthorLibrary": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:61249;http://localhost:61250"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+.mat-cell {
+    vertical-align: top;
+  }
+
+  .mat-mdc-cell {
+    vertical-align: top;
+    padding-top:5px;
+  }

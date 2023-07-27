@@ -1,0 +1,17 @@
+<div>
+  <form>
+    <fieldset>
+      <div>
+        <label>UserName</label>
+        <input [(ngModel)]="userName" name="username" type="text" />
+      </div>
+      <div>
+        <label>Password</label>
+        <input [(ngModel)]="password" name="password" type="password" />
+      </div>
+      <div>
+        <button type="submit" style="color:gray" (click)="SignIn()">SignIn</button>
+      </div>
+    </fieldset>
+  </form>
+</div>

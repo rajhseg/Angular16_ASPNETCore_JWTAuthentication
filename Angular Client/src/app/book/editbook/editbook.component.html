@@ -1,0 +1,42 @@
+<h1>Edit Book</h1>
+<div style="margin-left: 100px;">
+    <p>
+        <mat-form-field appearance="outline">
+            <mat-label>Id</mat-label>
+            <input matInput placeholder="Id" [(ngModel)]="Book.id" disabled="disabled"/>
+            <mat-icon matSuffix>account_circle</mat-icon>
+            <mat-hint>Hint:book id</mat-hint>
+        </mat-form-field>
+    </p>
+    <br/>
+    <p>        
+        <mat-form-field appearance="outline">
+            <mat-label>Title</mat-label>
+            <input matInput placeholder="Title" [(ngModel)]="Book.title" />
+            <mat-icon matSuffix>title</mat-icon>
+            <mat-hint>Hint:book title</mat-hint>
+        </mat-form-field>
+    </p>
+    <br/>
+    <p>        
+        <mat-form-field appearance="outline">
+            <mat-label>Description</mat-label>
+            <input matInput placeholder="Description" [(ngModel)]="Book.description"/>
+            <mat-icon matSuffix>description</mat-icon>
+            <mat-hint>Hint:description</mat-hint>
+        </mat-form-field>
+    </p>
+    <br/>
+    <p>        
+        <mat-form-field appearance="outline" style="width: 220px;">     
+            <mat-label>Authors</mat-label>   
+            <mat-select [(ngModel)]="Book.authorId" name="authors">                
+                <mat-option *ngFor="let item of Authors" [value]="item.id">{{item.name}}</mat-option>
+            </mat-select>   
+            <mat-hint>Hint: authors</mat-hint>                     
+        </mat-form-field>
+    </p>
+    <br/>
+    <button mat-raised-button color="primary" (click)="back()">Back</button>
+    <button style="margin-left: 60px;" mat-raised-button color="accent" (click)="save()">Save</button>
+</div>

@@ -1,0 +1,42 @@
+<br/>
+<div>
+    <button (click)="AddBook()" mat-raised-button color="primary">Add Book</button>
+</div>
+<br/>
+<router-outlet></router-outlet>
+<br />
+<div>
+    <table mat-table [dataSource]="books" class="mat-elevation-z8">
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>Id</th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef>Title</th>
+            <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef>Description</th>
+            <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="authorName">
+            <th mat-header-cell *matHeaderCellDef>Author Name</th>
+            <td mat-cell *matCellDef="let element"> {{element.authorName}} </td>
+        </ng-container>
+
+        
+        <ng-container matColumnDef="Actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let element">                 
+                <button mat-raised-button color="primary" (click)="Edit(element)">Edit</button>
+                <button style="margin-left:20px" mat-raised-button color="accent" (click)="Delete(element)">Delete</button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayColumns;"></tr>
+    </table>
+</div>

@@ -1,0 +1,14 @@
+<mat-progress-bar *ngIf="isLoaderVisible" mode="indeterminate"></mat-progress-bar>
+<div id="sidebar" class="sidebar">
+  <a [routerLinkActive]="'active'" [routerLink]="['home']" [routerLinkActiveOptions]="{ exact: false}">Home</a>
+  <div *ngIf="isMenuVisible">
+    <a [routerLink]="['author']" [routerLinkActive]="'active'">Author</a>
+    <a [routerLink]="['book']" [routerLinkActive]="'active'">Book</a>
+    <a style="cursor: pointer;" (click)="SignOut()">LogOut</a>
+  </div>
+  <a *ngIf="!isMenuVisible" [routerLink]="['login']" [routerLinkActive]="'active'">Sign In</a>
+</div>
+
+<div class="content">
+  <router-outlet></router-outlet>
+</div>
