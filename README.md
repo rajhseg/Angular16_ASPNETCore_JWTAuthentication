@@ -1,6 +1,10 @@
 # Angular16_ASPNETCore_JWTAuthentication
 This Repo consists of sample of Angular 16 application with ASPNET Core server based on JWT authentication
 
+
+![image](https://github.com/rajhseg/Angular16_ASPNETCore_JWTAuthentication/assets/9523832/081ceaad-153e-4111-9092-ab8d0a62ee4b)
+
+
 Angular App Consists of
 1. Loading image
 2. HttpToken Interceptor
@@ -16,3 +20,4 @@ ASP Net Core Consists of
 3. Role based controller
 4. CRUD operations
 5. Entity Framework Core
+
