@@ -1,6 +1,8 @@
 # Angular16_ASPNETCore_JWTAuthentication
 This Repo consists of sample of Angular 16 application with ASPNET Core server based on JWT authentication
 
+Following key "JwtConfig:key": "djbiffnnTsidd" in appsettings json should be placed or stored under secured environment like (KeyValut)
+
 **Login Page:**
 
 ![image](https://github.com/rajhseg/Angular16_ASPNETCore_JWTAuthentication/assets/9523832/da08e158-decf-4caa-bae9-171f3da27e80)
