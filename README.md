@@ -3,6 +3,13 @@ This Repo consists of sample of Angular 16 application with ASPNET Core server b
 
 Following key **"JwtConfig:key": "CuYM000OLlMQG6VVLp1OH7Xzyw3eHuw1qvUC5dcGt8FLI"** in **appsettings json** should be placed or stored under secured environment like (KeyValut)
 
+Authentication Flow
+
+**Login Screen -> token generate return the token -> Angular http interceptor sends token in header -> (Based on JWTConfig in program.cs) Authorize attribute validate the authorization header.
+**
+
+
+
 **Login Page:**
 
 ![image](https://github.com/rajhseg/Angular16_ASPNETCore_JWTAuthentication/assets/9523832/da08e158-decf-4caa-bae9-171f3da27e80)
