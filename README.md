@@ -5,7 +5,15 @@ Following key **"JwtConfig:key": "CuYM000OLlMQG6VVLp1OH7Xzyw3eHuw1qvUC5dcGt8FLI"
 
 Authentication Flow
 
-**Login Screen with credentials -> token generate return the token -> Angular http interceptor sends token in header -> (Based on JWTConfig in program.cs) Authorize attribute validate the claims**
+**Login Screen with credentials 
+
+    -> token generate return the encoded token 
+    
+    -> Angular http interceptor sends token in header 
+
+    -> middleware or onmessagerecevied bind the actual token from db based on encoded token
+
+    -> (Based on JWTConfig in program.cs) Authorize attribute validate the claims**
 
 
 
