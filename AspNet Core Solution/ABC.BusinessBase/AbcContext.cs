@@ -18,5 +18,7 @@ namespace ABC.BusinessBase
         public DbSet<Book> Books { get; set; }
 
         public DbSet<Author> Authors { get; set; }
+        
+        public DbSet<Token> AuthToken {get; set;}
     }
 }

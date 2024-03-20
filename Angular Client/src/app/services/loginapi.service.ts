@@ -31,6 +31,11 @@ export class LoginapiService {
 
   }
 
+  SignOut(username:string, token: string): Observable<any> {
+    var request = new LoginRequest(username, token);
+    return this.http.post(this.ServerUrl+"/Login/SignOut", request);
+  }
+
   async Validate(token:string): Promise<ValidateTokenResponseModel | undefined> {
     return await this.http.post<ValidateTokenResponseModel>(this.ServerUrl+'/login/validate',new ValidateTokenModel(token)).toPromise();
   }

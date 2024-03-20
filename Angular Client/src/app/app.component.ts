@@ -4,6 +4,7 @@ import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/rou
 import { TokenService } from './services/token.service';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { LoaderService } from './services/loader.service';
+import { LoginapiService } from './services/loginapi.service';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -17,7 +18,8 @@ export class AppComponent implements OnInit{
   isLoaderVisible:boolean =false;
   isMenuVisible: boolean =false;
 
-  constructor(private tokenService: TokenService, private navigation:Router, private loader:LoaderService){
+  constructor(private tokenService: TokenService, private navigation:Router, private loader:LoaderService,
+    private loginService: LoginapiService){
     this.isMenuVisible = tokenService.isLoggedIn();
     this.tokenService.isAuthenticated$.subscribe(x=>{
       this.isMenuVisible = x;
@@ -33,8 +35,10 @@ export class AppComponent implements OnInit{
   }
 
   SignOut(){
-    this.tokenService.logout();
-    this.navigation.navigateByUrl("login");
+    this.loginService.SignOut("dummyuser", this.tokenService.GetToken()).subscribe(x=>{
+      this.tokenService.logout();
+      this.navigation.navigateByUrl("login");
+    });    
   }
 
 }
