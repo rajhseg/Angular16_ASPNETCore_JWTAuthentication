@@ -5,7 +5,7 @@ Following key **"JwtConfig:key": "CuYM000OLlMQG6VVLp1OH7Xzyw3eHuw1qvUC5dcGt8FLI"
 
 Authentication Flow
 
-**Login Screen with credentials 
+    -> Login Screen with credentials 
 
     -> token generate return the encoded token 
     
