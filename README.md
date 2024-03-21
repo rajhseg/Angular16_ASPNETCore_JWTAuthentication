@@ -7,12 +7,12 @@ Authentication Flow
 
     -> Login Screen with credentials 
 
-        -> token generate return the encoded mapped token which is mapped against the actual JWT token
+        -> token generate return the encoded mapped token which is mapping against the actual JWT token
             (actual token is saved in DB)
     
             -> Angular http interceptor sends token in header 
 
-                -> middleware or onmessagerecevied bind the actual token from db based on encoded token
+                -> middleware or onmessagerecevied bind the actual token from db based on encoded mapping token
 
                     -> (Based on JWTConfig in program.cs) Authorize attribute validate the claims**
 
