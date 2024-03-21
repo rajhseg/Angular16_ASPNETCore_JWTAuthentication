@@ -7,7 +7,8 @@ Authentication Flow
 
     -> Login Screen with credentials 
 
-        -> token generate return the encoded mapped token which is mapped against the actual JWT token(actual token is saved in DB)
+        -> token generate return the encoded mapped token which is mapped against the actual JWT token
+            (actual token is saved in DB)
     
             -> Angular http interceptor sends token in header 
 
