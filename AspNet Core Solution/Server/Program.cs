@@ -27,7 +27,7 @@ builder.Services.AddCors(options => { options.AddPolicy("ang", corsBuilder => {
 
 builder.Services.AddDbContext<DbContext, AbcContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("sql"),
                                                     x => x.MigrationsAssembly("ABC.BusinessBase")),
-                                                    contextLifetime: ServiceLifetime.Singleton);
+                                                    contextLifetime: ServiceLifetime.Scoped);
 
 builder.Services.AddSingleton<IAuthorRepository, AuthorRepository>();
 builder.Services.AddSingleton<IBooksRepository, BookRepository>();
