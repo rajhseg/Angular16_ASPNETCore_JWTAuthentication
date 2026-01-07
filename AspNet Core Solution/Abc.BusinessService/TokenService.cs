@@ -1,7 +1,6 @@
-﻿using Abc.AuthorLibrary;
-using ABC.BooksLibrary;
-using ABC.BusinessBase;
-using ABC.Models;
+﻿
+using ABC.Entities;
+using ABC.Entities.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Abc.BusinessService
 {
-    public class TokenService : ITokenService
+    internal class TokenService : ITokenService
     {
         private readonly ITokenRepository tokenRepository;
 

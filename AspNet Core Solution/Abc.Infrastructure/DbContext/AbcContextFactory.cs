@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
-namespace ABC.BusinessBase;
+namespace Abc.Infrastructure;
 
-public class AbcContextFactory : IDesignTimeDbContextFactory<AbcContext>
+internal class AbcContextFactory : IDesignTimeDbContextFactory<AbcContext>
 {
     public AbcContext CreateDbContext(string[] args)
     {

@@ -1,8 +1,9 @@
-﻿using ABC.BusinessBase;
-using ABC.Models;
+﻿
+using ABC.Entities;
+using ABC.Entities.Interfaces;
 using System.Linq.Expressions;
 
-namespace ABC.BooksLibrary
+namespace ABC.Entities.Interfaces
 {
     public interface IBooksRepository : IReposistory<Book>
     {

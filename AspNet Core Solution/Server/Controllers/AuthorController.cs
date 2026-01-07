@@ -1,5 +1,5 @@
 ﻿using Abc.BusinessService;
-using Abc.UnitOfWorkLibrary;
+using ABC.Entities.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
@@ -76,7 +76,7 @@ namespace WebAssemblyApp.Server.Controllers
                          filename = updateModel.PhotoName ?? "noimage.jpg";
                          photo = updateModel.UserPhotoInBytes;
                     }
-                    await this.authorService.UpdateAuthor(new ABC.Models.Author { Id = updateModel.Id, Name = updateModel.Name, PhotoName = filename, PhotoContent = photo });
+                    await this.authorService.UpdateAuthor(new ABC.Entities.Author { Id = updateModel.Id, Name = updateModel.Name, PhotoName = filename, PhotoContent = photo });
                     await this.unitOfWork.CommitTransactionAsync(trans);
                     return Ok();
                 }
@@ -164,14 +164,14 @@ namespace WebAssemblyApp.Server.Controllers
             {
                 try
                 {
-                    List<ABC.Models.Book> _books = new List<ABC.Models.Book>();
+                    List<ABC.Entities.Book> _books = new List<ABC.Entities.Book>();
 
                     if (model.Books != null)
                     {
-                        _books.AddRange(model.Books.Select(x => new ABC.Models.Book { AuthorId = model.Id, Title = x.Title, Description = x.Description }));
+                        _books.AddRange(model.Books.Select(x => new ABC.Entities.Book { AuthorId = model.Id, Title = x.Title, Description = x.Description }));
                     }
 
-                    await this.authorService.AddAuthor(new ABC.Models.Author { Id = model.Id, Name = model.Name, Books = _books });
+                    await this.authorService.AddAuthor(new ABC.Entities.Author { Id = model.Id, Name = model.Name, Books = _books });
                     await this.unitOfWork.CommitTransactionAsync(trans);
 
                     return Ok();

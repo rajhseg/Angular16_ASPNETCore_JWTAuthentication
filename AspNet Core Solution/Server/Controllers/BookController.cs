@@ -1,6 +1,5 @@
 ﻿using Abc.BusinessService;
-using Abc.UnitOfWorkLibrary;
-using ABC.Models;
+using ABC.Entities.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
@@ -87,7 +86,7 @@ namespace WebAssemblyApp.Server.Controllers
             {
                 try
                 {
-                    await this._bookService.AddBook(new ABC.Models.Book { Title = model.Title, Description = model.Description, AuthorId = model.AuthorId });
+                    await this._bookService.AddBook(new ABC.Entities.Book { Title = model.Title, Description = model.Description, AuthorId = model.AuthorId });
                     await this.unitOfWork.CommitTransactionAsync(trans);
                     return Ok();
                 }
@@ -157,7 +156,7 @@ namespace WebAssemblyApp.Server.Controllers
                     {
                         try
                         {
-                            await this._bookService.UpdateBook(new ABC.Models.Book { Id = model.Id, Title = model.Title, Description = model.Description, AuthorId = model.AuthorId });
+                            await this._bookService.UpdateBook(new ABC.Entities.Book { Id = model.Id, Title = model.Title, Description = model.Description, AuthorId = model.AuthorId });
                             await this.unitOfWork.CommitTransactionAsync(transaction);
                             return Ok();
                         }

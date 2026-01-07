@@ -1,4 +1,4 @@
-﻿using ABC.Models;
+﻿using ABC.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ABC.BusinessBase
+namespace Abc.Infrastructure
 {
-    public class AbcContext : DbContext
+    internal class AbcContext : DbContext
     {        
         public AbcContext(DbContextOptions<AbcContext> options): base(options)
         {

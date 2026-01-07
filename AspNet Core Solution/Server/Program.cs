@@ -1,8 +1,5 @@
-using Abc.AuthorLibrary;
 using Abc.BusinessService;
-using Abc.UnitOfWorkLibrary;
-using ABC.BooksLibrary;
-using ABC.BusinessBase;
+using Abc.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
@@ -25,21 +22,11 @@ builder.Services.AddCors(options => { options.AddPolicy("ang", corsBuilder => {
     }); 
 });
 
-builder.Services.AddDbContext<DbContext, AbcContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("sql"),
-                                                    x => x.MigrationsAssembly("ABC.BusinessBase")),
-                                                    contextLifetime: ServiceLifetime.Scoped);
+builder.Services.RegisterRepositories(builder.Configuration.GetConnectionString("sql"));
+builder.Services.RegisterBusinessService();
 
-builder.Services.AddSingleton<IAuthorRepository, AuthorRepository>();
-builder.Services.AddSingleton<IBooksRepository, BookRepository>();
-builder.Services.AddSingleton<ITokenRepository, TokenRepository>();
-builder.Services.AddSingleton<IUnitOfWork, UnitOfWork>();
-
-builder.Services.AddTransient<IAuthorService, AuthorService>();
-builder.Services.AddTransient<IBookService, BookService>();
-builder.Services.AddTransient<ITokenService, TokenService>();
 builder.Services.AddSingleton<IUserInfoService, UserInfoService>();
 builder.Services.AddTransient<IJwtAuthentication, JWTAuthentication>();
-
 
 builder.Services.AddAuthentication(options =>
 {
