@@ -22,8 +22,9 @@ builder.Services.AddCors(options => { options.AddPolicy("ang", corsBuilder => {
     }); 
 });
 
-builder.Services.RegisterRepositories(builder.Configuration.GetConnectionString("sql"));
-builder.Services.RegisterBusinessService();
+
+builder.Services.RegisterApplicationLayer();
+builder.Services.RegisterInfrastructure(builder.Configuration);
 
 builder.Services.AddSingleton<IUserInfoService, UserInfoService>();
 builder.Services.AddTransient<IJwtAuthentication, JWTAuthentication>();
