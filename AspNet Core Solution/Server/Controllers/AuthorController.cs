@@ -20,6 +20,7 @@ namespace WebAssemblyApp.Server.Controllers
     [Route("[controller]")]
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles ="Admin,User")]
+    [AutoValidateAntiforgeryToken]
     public class AuthorController : ControllerBase
     {
         private readonly IUnitOfWork unitOfWork;

@@ -11,7 +11,7 @@ export function TokenAuthInterceptorFn(req: HttpRequest<unknown>, next:HttpHandl
 
   loader.start();
 
-  if(req.url != ServerUrl+'/Login/SignIn' && req.url != ServerUrl+'/Login/Validate') {      
+  if(req.url != ServerUrl+'/Login/SignIn') {      
     return from(handle(req, next)).pipe(tap(x=> loader.stop()));      
   } else{
     return next(req).pipe(tap(x=>loader.stop()));
@@ -21,12 +21,12 @@ export function TokenAuthInterceptorFn(req: HttpRequest<unknown>, next:HttpHandl
 
 async function handle(req: HttpRequest<unknown>, next: HttpHandlerFn) {
 
-  var token = inject(TokenService);
-  var _token = token.GetToken();
+  var tokenService = inject(TokenService);
+  var _antitoken = tokenService.getAntiToken();
 
   const authReq = req.clone({
     setHeaders: {
-      Authorization: 'Bearer '+_token
+      "A_XSRF_TOKEN": _antitoken
     }
   })
 

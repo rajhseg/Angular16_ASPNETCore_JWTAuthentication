@@ -11,9 +11,9 @@ namespace Abc.BusinessService
     {
         public static void RegisterApplicationLayer(this IServiceCollection service) 
         {
-            service.AddTransient<IAuthorService, AuthorService>();
-            service.AddTransient<IBookService, BookService>();
-            service.AddTransient<ITokenService, TokenService>();
+            service.AddScoped<ITokenService, TokenService>();
+            service.AddScoped<IAuthorService, AuthorService>();
+            service.AddScoped<IBookService, BookService>();
         }
     }
 }

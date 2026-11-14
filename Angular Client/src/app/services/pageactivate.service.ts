@@ -8,13 +8,10 @@ export const canPageActivate: CanActivateFn = async (route: ActivatedRouteSnapsh
   var loginApiService = inject(LoginapiService);
   var navigation = inject(Router);
   var loggedin = false;
-  var token =  tokenService.GetToken()
-
-  if(token!=null) {
 
     try
     {
-      var sid_model = await loginApiService.Validate(token)
+      var sid_model = await loginApiService.Validate()
       var sid_local = tokenService.GetSid();
 
       if(sid_model?.sid===sid_local){
@@ -25,7 +22,6 @@ export const canPageActivate: CanActivateFn = async (route: ActivatedRouteSnapsh
       loggedin = false;
     }
 
-  }
 
   if(!loggedin){
     tokenService.logout();
@@ -40,13 +36,10 @@ export const canChildPageActivate: CanActivateChildFn =  async (route: Activated
   var loginApiService = inject(LoginapiService);
   var navigation = inject(Router);
   var loggedin = false;
-  var token =  tokenService.GetToken()
-
-  if(token!=null) {
 
     try
     {
-      var sid_model = await loginApiService.Validate(token)
+      var sid_model = await loginApiService.Validate();
       var sid_local = tokenService.GetSid();
 
       if(sid_model?.sid===sid_local){
@@ -57,7 +50,6 @@ export const canChildPageActivate: CanActivateChildFn =  async (route: Activated
       loggedin = false;
     }
 
-  }
 
   if(!loggedin){
     tokenService.logout();

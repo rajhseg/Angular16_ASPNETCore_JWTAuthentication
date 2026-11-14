@@ -19,7 +19,7 @@ export class LoginapiService {
 
     var request = new LoginRequest(username, password);
    
-    return lastValueFrom(this.http.post<LoginResponse>(this.ServerUrl + "/Login/SignIn", request).pipe(map((x)=>{
+    return lastValueFrom(this.http.post<LoginResponse>(this.ServerUrl + "/Login/SignIn", request,  { withCredentials: true } ).pipe(map((x)=>{
 
       if(x!=undefined){
         this.tokenService.UpdateToken(x);
@@ -31,13 +31,24 @@ export class LoginapiService {
 
   }
 
-  SignOut(username:string, token: string): Observable<any> {
-    var request = new LoginRequest(username, token);
-    return this.http.post(this.ServerUrl+"/Login/SignOut", request);
+  antiForgeryToken(): Promise<boolean> {
+    return lastValueFrom(this.http.get(this.ServerUrl + "/api/antiforgery/token", { withCredentials: true}).pipe(map((x)=>{
+      if(x!=undefined){
+        this.tokenService.updateAntiForgery();
+        return true;
+      } else {
+        return false;
+      }
+    })));
   }
 
-  async Validate(token:string): Promise<ValidateTokenResponseModel | undefined> {
-    return await this.http.post<ValidateTokenResponseModel>(this.ServerUrl+'/login/validate',new ValidateTokenModel(token)).toPromise();
+  SignOut(username:string): Observable<any> {
+    var request = new LoginRequest(username, "");
+    return this.http.post(this.ServerUrl+"/Login/SignOut", request,  { withCredentials: true } );
+  }
+
+  async Validate(): Promise<ValidateTokenResponseModel | undefined> {
+    return await this.http.post<ValidateTokenResponseModel>(this.ServerUrl+'/login/validate', new ValidateTokenModel(""),  { withCredentials: true } ).toPromise();
   }
 
 }

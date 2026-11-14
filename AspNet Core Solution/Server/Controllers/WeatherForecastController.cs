@@ -8,6 +8,7 @@ namespace WebAssemblyApp.Server.Controllers
     [ApiController]
     [Route("[controller]")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles ="User,Admin")]
+    [AutoValidateAntiforgeryToken]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]

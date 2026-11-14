@@ -26,7 +26,7 @@ export class LoginComponent {
 
   async SignIn() {
     var response = await this.loginApi.SignIn(this.userName, this.password);
-    
+    await this.loginApi.antiForgeryToken();
     if(response){
       this.router.navigateByUrl('/author');
     }

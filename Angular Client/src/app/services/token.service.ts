@@ -2,32 +2,33 @@ import { Injectable, signal, WritableSignal } from '@angular/core';
 import { LoginResponse } from '../Models/LoginResponse';
 import { toObservable } from '@angular/core/rxjs-interop'
 import { LoginapiService } from './loginapi.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenService {
 
-  token: string | null = '';
+  // token: string | null = '';
   isSignIn: WritableSignal<boolean> = signal(false);
   isAuthenticated$ = toObservable(this.isSignIn);
 
-  constructor() { 
-    this.GetToken();
+  constructor(private cookieService: CookieService) { 
   }
 
   isLoggedIn(): boolean {
-    this.GetToken();
     return this.isSignIn();
   }
 
   UpdateToken(response: LoginResponse){
-    if(response.token!=undefined){
-    this.token = response.token;
+    if(response!=undefined){
     this.isSignIn.set(true);
-    localStorage.setItem("user_info", this.encode(this.token));
     localStorage.setItem("sid",this.encode(response.userName));
    }
+ }
+
+ updateAntiForgery() {
+  localStorage.setItem("anti_token", this.encode(this.cookieService.get("XSRF-TOKEN")));
  }
 
  GetSid(): string {
@@ -38,30 +39,13 @@ export class TokenService {
   return "";
  }
 
-   GetToken(): string {
-    
-    var _token = localStorage.getItem("user_info")!;
-    if(_token!=null){
-    this.token = this.decode(_token);
-      
-      if(this.token==undefined || this.token=="" || this.token==null)
-      {        
-        this.isSignIn.set(false);    
-        localStorage.clear();    
-      }
-      else {  
-        if(this.token!=undefined)
-          this.isSignIn.set(true);
-      }
-      return this.token;
-    } else {
-      this.isSignIn.set(false);
-      return "";
-    }
-  }  
+ getAntiToken(): string {
+  let val = localStorage.getItem("anti_token") || "";
+  let token = this.decode(val);
+  return token;
+ }  
 
   logout() {
-    this.token="";
     localStorage.removeItem("user_info");
     localStorage.removeItem("sid");
     this.isSignIn.set(false);

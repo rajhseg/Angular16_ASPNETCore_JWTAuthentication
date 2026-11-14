@@ -35,7 +35,7 @@ export class AppComponent implements OnInit{
   }
 
   SignOut(){
-    this.loginService.SignOut("dummyuser", this.tokenService.GetToken()).subscribe(x=>{
+    this.loginService.SignOut("dummyuser").subscribe(x=>{
       this.tokenService.logout();
       this.navigation.navigateByUrl("login");
     });    

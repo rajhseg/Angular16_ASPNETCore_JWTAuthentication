@@ -35,16 +35,27 @@ namespace WebAssemblyApp.Server.Controllers
 
         [HttpPost]
         [Route("signout")]
-        public async Task<IActionResult> SignOut(LoginModel request)
+        public async Task<IActionResult> SignOut(LoginModel req)
         {
-            if(request.Password!=null){
+            var cookie_token = Request.Cookies["access_token"];
+
+            if (cookie_token != null){
 
                   using(var trans = await this.unitOfWork.BeginTransactionAsync()){
 
                     try{
-                        var tokenData = await this.tokenService.GetActualToken(request.Password);
+                        var tokenData = await this.tokenService.GetActualToken(cookie_token);
                         await this.tokenService.DeleteToken(tokenData.Id);
                         await this.unitOfWork.CommitTransactionAsync(trans);
+                        
+                        Response.Cookies.Delete("access_token", new CookieOptions
+                        {
+                            HttpOnly = true,
+                            Secure = true,
+                            SameSite = SameSiteMode.Lax,
+                            Path = "/"
+                        });
+
                         return Ok();
                     }
                     catch{
@@ -87,8 +98,20 @@ namespace WebAssemblyApp.Server.Controllers
                     await this.tokenService.AddToken(tokenData);
                     await this.unitOfWork.CommitTransactionAsync(trans);
 
-                    var result = new UserInfoObject { Token = encodedToken, UserName = loginUser.UserName, 
-                                        Role = loginUser.Role, Expires = 20, RefreshToken = refreshToken };
+                    var result = new UserInfoObject { UserName = loginUser.UserName, 
+                                        Role = loginUser.Role, Expires = 20};
+
+                    Response.Cookies.Append("access_token",
+                                                encodedToken,
+                                                new CookieOptions
+                                                {
+                                                    HttpOnly = true,
+                                                    Secure = true,
+                                                    SameSite = SameSiteMode.Lax,
+                                                    Path = "/",
+                                                    Expires = DateTimeOffset.UtcNow.AddMinutes(30)
+                                                });
+
                     return Ok(result);
                 }
                 catch{
@@ -103,10 +126,20 @@ namespace WebAssemblyApp.Server.Controllers
 
         [HttpPost]
         [Route("validate")]
+        [ValidateAntiForgeryToken]
         public IActionResult Validate([FromBody]ValidateTokenModel model)
         {
-            var id = this.jwtAuthentication.ValidateToken(model.Token);
-            return Ok(new ValidateTokenResponse { Sid = id });
+            var cookie_token = Request.Cookies["access_token"];
+
+            if (cookie_token != null)
+            {
+                var id = this.jwtAuthentication.ValidateToken(cookie_token);
+                return Ok(new ValidateTokenResponse { Sid = id });
+            } 
+            else
+            {
+                return BadRequest();
+            }
         }
     }
 }

@@ -13,6 +13,7 @@ namespace WebAssemblyApp.Server.Controllers
     [Route("[controller]")]
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles ="Admin,User")]
+    [AutoValidateAntiforgeryToken]
     public class BookController : ControllerBase
     {
         private readonly IBookService _bookService;

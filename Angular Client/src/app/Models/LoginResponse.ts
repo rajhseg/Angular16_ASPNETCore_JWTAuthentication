@@ -6,7 +6,7 @@ export class LoginResponse {
 
   public userName: string = '';
 
-  public token: string = '';
+  // public token: string = '';
 
   public role:string =''
 }
