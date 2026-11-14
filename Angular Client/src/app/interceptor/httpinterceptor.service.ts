@@ -26,7 +26,7 @@ async function handle(req: HttpRequest<unknown>, next: HttpHandlerFn) {
 
   const authReq = req.clone({
     setHeaders: {
-      "A_XSRF_TOKEN": _antitoken
+      "A_xsrf_token": _antitoken
     }
   })
 

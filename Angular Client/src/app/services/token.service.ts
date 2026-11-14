@@ -13,7 +13,7 @@ export class TokenService {
   isSignIn: WritableSignal<boolean> = signal(false);
   isAuthenticated$ = toObservable(this.isSignIn);
 
-  constructor(private cookieService: CookieService) { 
+  constructor() { 
   }
 
   isLoggedIn(): boolean {
@@ -27,8 +27,8 @@ export class TokenService {
    }
  }
 
- updateAntiForgery() {
-  localStorage.setItem("anti_token", this.encode(this.cookieService.get("XSRF-TOKEN")));
+ updateAntiForgery(_a: string) {
+  localStorage.setItem("anti_token", this.encode(_a));
  }
 
  GetSid(): string {

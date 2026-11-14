@@ -64,15 +64,11 @@ builder.Services.AddAuthentication(options =>
 
         if (!string.IsNullOrEmpty(cookie_token))
         {
-            var tokenService = builder.Services.BuildServiceProvider().GetService<ITokenService>();
-
-            if (tokenService != null)
+            var tokenService = context.HttpContext.RequestServices.GetRequiredService<ITokenService>();
+            var tokenData = await tokenService.GetActualToken(cookie_token);
+            if (tokenData != null)
             {
-                var tokenData = await tokenService.GetActualToken(cookie_token);
-                if (tokenData != null)
-                {
-                    context.Request.Headers.Authorization = "Bearer " + tokenData.ActualToken;
-                }
+                context.Request.Headers.Authorization = "Bearer " + tokenData.ActualToken;
             }
         }
 
@@ -89,7 +85,7 @@ builder.Services.AddAuthentication(options =>
             return;
 
             var token = bearer[1];
-            var tokenService = builder.Services.BuildServiceProvider().GetService<ITokenService>();
+            var tokenService = context.HttpContext.RequestServices.GetRequiredService<ITokenService>();
 
             if(tokenService!=null){
                 var tokenData = await tokenService.GetActualToken(token);
@@ -103,13 +99,13 @@ builder.Services.AddAuthentication(options =>
 
     };
     
-    // uncomment the line if you want to validate token in this event or use middleware
+    //uncomment the line if you want to validate token in this event or use middleware
     //options.Events = events;
 });
 
 
 builder.Services.AddAntiforgery(t => {
-    t.HeaderName = "A_XSRF_TOKEN";
+    t.HeaderName = "A_xsrf_token";
     t.Cookie.Name = "__Host-AntiForgery";
     t.Cookie.HttpOnly = true;
     t.Cookie.SecurePolicy = CookieSecurePolicy.Always;
@@ -149,25 +145,13 @@ app.MapRazorPages();
 
 
 app.MapGet("/api/antiforgery/token",
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+(IAntiforgery antiforgery, HttpContext context) =>
+{
+    var tokens = antiforgery.GetAndStoreTokens(context);
 
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin,User")] 
-    (IAntiforgery antiforgery, HttpContext context) =>
-    {
-        var tokens = antiforgery.GetAndStoreTokens(context);
-
-        context.Response.Cookies.Append(
-            "XSRF-TOKEN",
-            tokens.RequestToken!,
-            new CookieOptions
-            {
-                HttpOnly = false,
-                Secure = true,
-                SameSite = SameSiteMode.Lax,
-                Path = "/"
-            });
-
-        return Results.Ok();
-    });
+    return Results.Ok(new { FAQ = tokens.RequestToken });
+});
 
 app.MapControllers();
 app.MapFallbackToFile("index.html");

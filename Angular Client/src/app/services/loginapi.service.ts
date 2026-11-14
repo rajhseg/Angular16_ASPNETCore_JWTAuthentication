@@ -32,9 +32,10 @@ export class LoginapiService {
   }
 
   antiForgeryToken(): Promise<boolean> {
-    return lastValueFrom(this.http.get(this.ServerUrl + "/api/antiforgery/token", { withCredentials: true}).pipe(map((x)=>{
+    return lastValueFrom(this.http.get(this.ServerUrl + "/api/antiforgery/token", { withCredentials: true}).pipe(map((x: any)=>{
       if(x!=undefined){
-        this.tokenService.updateAntiForgery();
+        let _A = x.faq;
+        this.tokenService.updateAntiForgery(_A);
         return true;
       } else {
         return false;

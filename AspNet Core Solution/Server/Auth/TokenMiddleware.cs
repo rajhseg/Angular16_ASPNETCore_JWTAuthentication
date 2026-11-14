@@ -7,13 +7,11 @@ namespace WebApp.Server
 
 public class TokenMiddleware {
     private readonly RequestDelegate _next;
-    private readonly ITokenService service;
 
-    public TokenMiddleware(RequestDelegate next, ITokenService tokenService) {
+    public TokenMiddleware(RequestDelegate next) {
         _next = next;
-        service = tokenService;
     }
-    public async Task Invoke(HttpContext httpContext) {
+    public async Task Invoke(HttpContext httpContext, ITokenService service) {
 
         /* This approach is for read the token from cookies, when using cookie, then we have to send the AntiforgeryToken for all calls */
         var cookie_token = httpContext.Request.Cookies["access_token"];
