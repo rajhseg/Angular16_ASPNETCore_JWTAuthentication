@@ -52,7 +52,7 @@ namespace WebAssemblyApp.Server.Controllers
                         {
                             HttpOnly = true,
                             Secure = true,
-                            SameSite = SameSiteMode.Lax,
+                            SameSite = SameSiteMode.None,
                             Path = "/"
                         });
 
@@ -107,7 +107,7 @@ namespace WebAssemblyApp.Server.Controllers
                                                 {
                                                     HttpOnly = true,
                                                     Secure = true,
-                                                    SameSite = SameSiteMode.Lax,
+                                                    SameSite = SameSiteMode.None,
                                                     Path = "/",
                                                     Expires = DateTimeOffset.UtcNow.AddMinutes(30)
                                                 });

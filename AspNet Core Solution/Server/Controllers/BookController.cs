@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebApp.Server.Auth;
 using WebAssemblyApp.Shared;
 using Route = Microsoft.AspNetCore.Mvc.RouteAttribute;
 
@@ -13,7 +14,7 @@ namespace WebAssemblyApp.Server.Controllers
     [Route("[controller]")]
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles ="Admin,User")]
-    [AutoValidateAntiforgeryToken]
+    [ServiceFilter(typeof(CustomAntiForgeryFilter))]
     public class BookController : ControllerBase
     {
         private readonly IBookService _bookService;

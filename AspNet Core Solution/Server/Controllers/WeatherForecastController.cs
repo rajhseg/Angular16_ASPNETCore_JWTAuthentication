@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WebApp.Server.Auth;
 using WebAssemblyApp.Shared;
 
 namespace WebAssemblyApp.Server.Controllers
@@ -8,7 +9,7 @@ namespace WebAssemblyApp.Server.Controllers
     [ApiController]
     [Route("[controller]")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles ="User,Admin")]
-    [AutoValidateAntiforgeryToken]
+    [ServiceFilter(typeof(CustomAntiForgeryFilter))]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]

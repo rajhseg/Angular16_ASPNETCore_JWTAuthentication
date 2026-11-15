@@ -10,16 +10,17 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using WebApp.Server;
+using WebApp.Server.Auth;
 using WebAssemblyApp.Server.Auth;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllersWithViews(options =>
-{
-    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
-});
+builder.Services.AddControllersWithViews();
+
+
+builder.Services.AddScoped<CustomAntiForgeryFilter>();
 
 builder.Services.AddRazorPages();
 
@@ -109,7 +110,7 @@ builder.Services.AddAntiforgery(t => {
     t.Cookie.Name = "__Host-AntiForgery";
     t.Cookie.HttpOnly = true;
     t.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-    t.Cookie.SameSite = SameSiteMode.Lax;
+    t.Cookie.SameSite = SameSiteMode.None;
 });
 
 var app = builder.Build();

@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using WebApp.Server.Auth;
 using WebAssemblyApp.Shared;
 using WebAssemblyApp.Shared.ViewModel;
 using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
@@ -20,7 +21,7 @@ namespace WebAssemblyApp.Server.Controllers
     [Route("[controller]")]
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles ="Admin,User")]
-    [AutoValidateAntiforgeryToken]
+    [ServiceFilter(typeof(CustomAntiForgeryFilter))]
     public class AuthorController : ControllerBase
     {
         private readonly IUnitOfWork unitOfWork;
