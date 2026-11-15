@@ -7,10 +7,10 @@ Authentication Flow
 
     -> Login Screen with credentials 
 
-        -> token generate return the encoded mapped token which is mapping against the actual JWT token
+        -> token generate return the encoded mapped token which is mapping against the actual JWT token in cookie
             (actual token is saved in DB)
     
-            -> Angular http interceptor sends token in header 
+            -> Angular http interceptor sends xsrf token in header and access token in cookie
 
                 -> middleware or onmessagerecevied bind the actual token from db based on encoded mapping token
 
